@@ -34,13 +34,13 @@ jobs:
             exit 1
           fi
           echo "Found: $found"
-          cp "$found" dist/BlinkD1Mini.ino.d1_mini.bin
+          cp "$found" dist/WifiRepeater.ino.d1_mini.bin
 
       - name: Upload .bin artifact
         uses: actions/upload-artifact@v7
         with:
-          name: BlinkD1Mini
-          path: dist/BlinkD1Mini.ino.d1_mini.bin
+          name: WifiRepeater
+          path: dist/WifiRepeater.ino.d1_mini.bin
           if-no-files-found: error
           archive: false
           compression-level: 0
