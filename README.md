@@ -11,17 +11,23 @@ networks. Builds on every push to `main` via GitHub Actions; no local toolchain.
   stored network in range; reconnects automatically if the link drops.
 - **Credentials survive reboot** — SSIDs + passwords stored in EEPROM.
 - **Web config UI** — add/remove networks, live status, factory reset.
-- **AP fallback** — always broadcasts `WifiRepeater-Setup` (open network) so you
-  can reach the config page even when nothing is in range.
+- **AP fallback** — always broadcasts `WifiRepeater-Setup` (WPA2) so you can
+  reach the config page even when nothing is in range.
+- **Secure by default** — the setup AP is WPA2-protected and the config page
+  requires login (session cookie). One password controls both; change it in the UI.
 
 ## Using the web UI
 
-1. Power the board. From a phone/laptop, join the WiFi network **WifiRepeater-Setup**.
+1. Power the board. From a phone/laptop, join the WiFi network **WifiRepeater-Setup**
+   (default password: `configure1` — change it right away).
 2. Browse to `http://192.168.4.1` (or the station IP shown on the serial monitor
-   once connected).
+   once connected) and log in with the same password.
 3. Add your network(s) — the board saves them, disconnects, and immediately tries
    the strongest one in range.
-4. Remove networks or factory-reset from the same page.
+4. Remove networks, change the admin password, or factory-reset from the same page.
+
+> Changing the password updates the WPA2 key of the `WifiRepeater-Setup` AP as
+> well — you'll need to reconnect to the AP with the new password after changing it.
 
 LED: **solid** = connected, **blinking** = scanning/AP mode.
 
