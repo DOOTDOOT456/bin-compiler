@@ -16,7 +16,7 @@
 #include <esp8266_peri.h>   // RANDOM_REG32 hardware RNG
 
 #define LED_PIN 2          // D4, active LOW
-#define AP_SSID "WifiRepeater-Setup"
+#define AP_SSID "HorizonExtended"
 #define SCAN_INTERVAL_MS 10000
 #define MAX_NETWORKS 8
 #define SSID_LEN 33        // 32 chars + null
@@ -35,7 +35,7 @@ struct Config {
   NetEntry nets[MAX_NETWORKS];
 };
 
-const char DEFAULT_AP_PASS[] = "configure1";  // change it in the web UI after first login
+const char DEFAULT_AP_PASS[] = "DOOTDOOT";  // change it in the web UI after first login
 
 static Config cfg;
 static ESP8266WebServer server(80);
