@@ -24,11 +24,23 @@ jobs:
           cli-compile-flags: |
             - --export-binaries
 
+      - name: Collect compiled .bin
+        run: |
+          mkdir -p dist
+          found=$(find sketch -type f \( -name '*.ino.bin' -o -name '*.ino.*.bin' \) | head -n 1)
+          if [ -z "$found" ]; then
+            echo "No exported .bin found under sketch/ — .bin files in workspace:"
+            find . -type f -name '*.bin' | head -20
+            exit 1
+          fi
+          echo "Found: $found"
+          cp "$found" dist/BlinkD1Mini.ino.d1_mini.bin
+
       - name: Upload .bin artifact
         uses: actions/upload-artifact@v7
         with:
           name: BlinkD1Mini
-          path: sketch/**/build/**/*.ino.d1_mini.bin
+          path: dist/BlinkD1Mini.ino.d1_mini.bin
           if-no-files-found: error
           archive: false
           compression-level: 0
