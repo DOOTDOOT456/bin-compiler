@@ -1,0 +1,35 @@
+name: Compile sketch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Compile sketch (esp8266:esp8266:d1_mini)
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: esp8266:esp8266:d1_mini
+          platforms: |
+            - name: esp8266:esp8266
+              source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+          sketch-paths: |
+            - sketch
+          libraries: '[]'
+          cli-compile-flags: |
+            - --export-binaries
+
+      - name: Upload .bin artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: BlinkD1Mini
+          path: sketch/**/build/**/*.ino.d1_mini.bin
+          if-no-files-found: error
+          archive: false
+          compression-level: 0
+          retention-days: 30
